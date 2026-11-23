@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>UNOPS</title>
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#004976;color:#fff;font:16px/1.5 system-ui,sans-serif;text-align:center;padding:24px;box-sizing:border-box}
+small{display:block;opacity:.8;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
+b{display:block;margin:6px 0 18px;font-size:20px}
+a{display:inline-block;padding:14px 32px;border-radius:24px;background:#F8EA44;color:#0D1E2F;font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+<div><small>Opening</small><b id="label">UNOPS</b><a id="open" href="https://www.unops.org">Open</a></div>
+<script>
+/* The link tracker web app (Apps Script). Each click is sent to it in the background, without Google accounts, then the real page opens. */
+var TRACKER = 'https://script.google.com/macros/s/AKfycbzQELqec83bgSsB615m83eIZxtCZXitFUlOg8oYFTzgQq5gmcQp4dhAhX3gZQY_2AT5/exec';
+var TARGETS = {
+  report: 'https://content.unops.org/publications/Purchase-for-impact-2025_EN.pdf',
+  ungm: 'https://www.ungm.org',
+  careers: 'https://www.unops.org/about/careers',
+  privacy: 'https://www.unops.org/privacy',
+  terms: 'https://www.unops.org/terms-of-use',
+  unops: 'https://www.unops.org'
+};
+var LABELS = { report: 'Purchase for Impact 2025', ungm: 'UN Global Marketplace', careers: 'UNOPS careers', privacy: 'UNOPS privacy', terms: 'UNOPS terms of use', unops: 'UNOPS' };
+var ALIASES = { pfi: 'report', p4i: 'report', purchase: 'report', pdf: 'report', career: 'careers', home: 'unops' };
+var q = new URLSearchParams(location.search), raw = (q.get('l') || '').toLowerCase().replace(/[^a-z0-9]/g, ''), pg = parseInt(q.get('p'), 10);
+var id = TARGETS[raw] ? raw : (ALIASES[raw] || (pg > 0 ? 'report' : 'unops'));
+var url = TARGETS[id] + (id === 'report' && pg > 0 && pg < 200 ? '#page=' + pg : '');
+document.getElementById('open').href = url;
+document.getElementById('label').textContent = LABELS[id] + (id === 'report' && pg > 0 ? ', page ' + pg : '');
+var gone = false;
+function go() { if (gone) return; gone = true; location.replace(url); }
+try { fetch(TRACKER + (location.search || '?l=unops'), { mode: 'no-cors', credentials: 'omit', cache: 'no-store', keepalive: true }).then(go, go); } catch (e) {}
+setTimeout(go, 1500);
+</script>
+</body>
+</html>

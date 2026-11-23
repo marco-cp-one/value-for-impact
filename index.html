@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#004976">
+<title>The Value of Impact | UNOPS</title>
+<style>
+html,body{margin:0;height:100%;background:#004976;color:#fff;font:16px/1.5 system-ui,sans-serif}
+iframe{position:fixed;inset:0;width:100%;height:100%;border:0;display:block}
+.msg{position:fixed;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:24px}
+.msg a{color:#F8EA44}
+</style>
+</head>
+<body>
+<iframe id="game" title="The Value of Impact" allow="fullscreen; clipboard-write; web-share; autoplay"></iframe>
+<div class="msg" id="msg"><p>The game address has not been set yet in index.html.</p></div>
+<script>
+/* The game's web app address, from Deploy > Manage deployments (it ends in /exec). */
+var GAME = 'https://script.google.com/macros/s/AKfycbxT8pz03jCFwfZgRVcpdNBBjE2h6gmGGl1oh4mLt5ckNI52cDSmOCcEqx7EqKMyCHRVwg/exec ';
+/* The game opens inside this page, so browsers signed in to several Google accounts still reach it.
+   Anything after ? in this page's address (a team code, for example) is passed on to the game. */
+if (/^https:\/\/script\.google\.com\//.test(GAME)) document.getElementById('game').src = GAME + (location.search || '');
+else document.getElementById('msg').style.display = 'flex';
+</script>
+</body>
+</html>
